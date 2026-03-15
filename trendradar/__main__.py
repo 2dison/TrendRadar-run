@@ -787,6 +787,14 @@ class NewsAnalyzer:
 
         # 如果没有任何数据，返回 None
         if not standalone_data["platforms"] and not standalone_data["rss_feeds"]:
+            missing = [p for p in platform_ids if p not in results]
+            if platform_ids:
+                print(
+                    f"[独立展示区] 本次无数据：配置的平台为 {platform_ids}，"
+                    f"本次 results 包含的平台为 {list(results.keys())}，"
+                    f"独立展示区平台中缺失 {missing}。"
+                    "若全部缺失多为该批爬取失败或当日尚无这些平台数据。"
+                )
             return None
 
         return standalone_data
