@@ -479,38 +479,80 @@ def split_content_into_batches(
         if not show_new_section or not report_data["new_titles"]:
             return current_batch, current_batch_has_content, batches
 
+        # v2.0 文案说明
+        v2_desc_markdown = (
+            "本次变更：结构更精简，优先突出独立热点区信息；结尾新增「GitHub 每日热门项目」介绍，按项目逐项概述功能与亮点，方便开发者快速筛选值得跟进的开源项目。\n\n"
+        )
+        v2_desc_plain = (
+            "本次变更：结构更精简，优先突出独立热点区信息；结尾新增「GitHub 每日热门项目」介绍，按项目逐项概述功能与亮点，方便开发者快速筛选值得跟进的开源项目。\n\n"
+        )
+
         # 根据 add_separator 决定是否添加前置分割线
         new_header = ""
         if add_separator and current_batch_has_content:
             # 需要添加分割线
             if format_type in ("wework", "bark"):
-                new_header = f"\n\n\n\n🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"\n\n\n\n🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "telegram":
                 new_header = (
-                    f"\n\n🆕 本次新增热点新闻 (共 {report_data['total_new_count']} 条)\n\n"
+                    f"\n\n🆕 本次新增热点新闻 v2.0 (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_plain}"
                 )
             elif format_type == "ntfy":
-                new_header = f"\n\n🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"\n\n🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "feishu":
-                new_header = f"\n{feishu_separator}\n\n🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"\n{feishu_separator}\n\n🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "dingtalk":
-                new_header = f"\n---\n\n🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"\n---\n\n🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "slack":
-                new_header = f"\n\n🆕 *本次新增热点新闻* (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"\n\n🆕 *本次新增热点新闻 v2.0* (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_plain}"
+                )
         else:
             # 不需要分割线（第一个区域）
             if format_type in ("wework", "bark"):
-                new_header = f"🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "telegram":
-                new_header = f"🆕 本次新增热点新闻 (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"🆕 本次新增热点新闻 v2.0 (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_plain}"
+                )
             elif format_type == "ntfy":
-                new_header = f"🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "feishu":
-                new_header = f"🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "dingtalk":
-                new_header = f"🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"🆕 **本次新增热点新闻 v2.0** (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_markdown}"
+                )
             elif format_type == "slack":
-                new_header = f"🆕 *本次新增热点新闻* (共 {report_data['total_new_count']} 条)\n\n"
+                new_header = (
+                    f"🆕 *本次新增热点新闻 v2.0* (共 {report_data['total_new_count']} 条)\n"
+                    f"{v2_desc_plain}"
+                )
 
         test_content = current_batch + new_header
         if (
