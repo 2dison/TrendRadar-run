@@ -240,6 +240,7 @@ def split_content_into_batches(
     # 定义处理热点词汇统计的函数
     def process_stats_section(current_batch, current_batch_has_content, batches, add_separator=True):
         """处理热点词汇统计"""
+        return current_batch, current_batch_has_content, batches
         if not report_data["stats"]:
             return current_batch, current_batch_has_content, batches
 

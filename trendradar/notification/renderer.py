@@ -43,37 +43,7 @@ def render_feishu_content(
     if region_order is None:
         region_order = DEFAULT_REGION_ORDER
 
-    # 生成热点词汇统计部分
     stats_content = ""
-    if report_data["stats"]:
-        stats_content += "📊 **热点词汇统计**\n\n"
-
-        total_count = len(report_data["stats"])
-
-        for i, stat in enumerate(report_data["stats"]):
-            word = stat["word"]
-            count = stat["count"]
-
-            sequence_display = f"<font color='grey'>[{i + 1}/{total_count}]</font>"
-
-            if count >= 10:
-                stats_content += f"🔥 {sequence_display} **{word}** : <font color='red'>{count}</font> 条\n\n"
-            elif count >= 5:
-                stats_content += f"📈 {sequence_display} **{word}** : <font color='orange'>{count}</font> 条\n\n"
-            else:
-                stats_content += f"📌 {sequence_display} **{word}** : {count} 条\n\n"
-
-            for j, title_data in enumerate(stat["titles"], 1):
-                formatted_title = format_title_for_platform(
-                    "feishu", title_data, show_source=True
-                )
-                stats_content += f"  {j}. {formatted_title}\n"
-
-                if j < len(stat["titles"]):
-                    stats_content += "\n"
-
-            if i < len(report_data["stats"]) - 1:
-                stats_content += f"\n{separator}\n\n"
 
     # 生成新增新闻部分
     new_titles_content = ""
@@ -184,37 +154,7 @@ def render_dingtalk_content(
     header_content += "**类型：** 热点分析报告\n\n"
     header_content += "---\n\n"
 
-    # 生成热点词汇统计部分
     stats_content = ""
-    if report_data["stats"]:
-        stats_content += "📊 **热点词汇统计**\n\n"
-
-        total_count = len(report_data["stats"])
-
-        for i, stat in enumerate(report_data["stats"]):
-            word = stat["word"]
-            count = stat["count"]
-
-            sequence_display = f"[{i + 1}/{total_count}]"
-
-            if count >= 10:
-                stats_content += f"🔥 {sequence_display} **{word}** : **{count}** 条\n\n"
-            elif count >= 5:
-                stats_content += f"📈 {sequence_display} **{word}** : **{count}** 条\n\n"
-            else:
-                stats_content += f"📌 {sequence_display} **{word}** : {count} 条\n\n"
-
-            for j, title_data in enumerate(stat["titles"], 1):
-                formatted_title = format_title_for_platform(
-                    "dingtalk", title_data, show_source=True
-                )
-                stats_content += f"  {j}. {formatted_title}\n"
-
-                if j < len(stat["titles"]):
-                    stats_content += "\n"
-
-            if i < len(report_data["stats"]) - 1:
-                stats_content += "\n---\n\n"
 
     # 生成新增新闻部分
     new_titles_content = ""
